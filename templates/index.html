@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>未定研2026 | 九州大学芸術工学部学祭企画</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg-[#F5F5F0] text-[#333] font-['Inter',_'Noto_Sans_JP',_sans-serif] overflow-x-hidden">
+
+    <nav class="fixed w-full z-50 bg-[#F5F5F0]/80 backdrop-blur-xl border-b border-black/5">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#home" class="nav-link text-xl font-bold tracking-tighter serif italic font-serif">未定研2026</a>
+            <div class="hidden md:flex space-x-10 text-[10px] uppercase tracking-[0.2em] font-semibold">
+                <a href="#work" class="nav-link hover:text-gray-400 transition">作品</a>
+                <a href="#activity" class="nav-link hover:text-gray-400 transition">活動</a>
+                <a href="#news" class="nav-link hover:text-gray-400 transition">お知らせ</a>
+                <a href="#contact" class="nav-link hover:text-gray-400 transition">お問い合わせ</a>
+            </div>
+            <div class="md:hidden">
+                <i data-lucide="menu" class="w-5 h-5"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="relative h-[90vh] flex items-center justify-center" style="background-image: url('static/assets/images/home_page_bg.jpg');">
+        <div class="text-center px-4 relative z-10">
+            <div class="inline-block px-4 py-1 mb-6 border border-black/10 rounded-full text-[9px] uppercase tracking-[0.3em] text-gray-300">
+                九州大学芸術工学部学祭企画
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold mb-8 text-white leading-tight font-serif">
+                未定研2026
+            </h1>
+            <div class="mt-12">
+                <a href="#work" class="bg-white text-black text-[15px] uppercase tracking-widest px-10 py-5 rounded-full hover:opacity-80 transition duration-500 shadow-xl shadow-black/5">
+                    過去作品
+                </a>
+            </div>
+        </div>
+        <div class="absolute top-1/4 -left-20 w-64 h-64 bg-[#EBEBE6] rounded-full blur-3xl opacity-50 circle-float"></div>
+        <div class="absolute bottom-1/4 -right-20 w-80 h-80 bg-[#E8A798] rounded-full blur-[100px] opacity-10 circle-float" style="animation-delay: -5s;"></div>
+    </section>
+
+    <section id="work" class="py-32 px-6 bg-white rounded-[40px] shadow-sm">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="text-2xl font-bold section-title font-serif">作品</h2>
+                <p class="text-gray-400 text-xs mt-4 tracking-widest">自主制作アニメーション</p>
+            </div>
+            <div id="project-container" class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                {% for project in projects %}
+                <div class="group cursor-pointer">
+                    <div class="img-card aspect-[4/3] flex items-center justify-center mb-6 bg-[#EBEBE6] rounded-[24px]">
+                        <img src="{{ url_for('static', filename=project.image) }}" 
+                            alt="{{ project.title }}" 
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </div>
+                    <div class="px-2">
+                        <h3 class="text-lg font-bold font-serif">{{ project.title }}</h3>
+                        <p class="text-gray-400 text-xs mt-2">{{ project.description }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="mt-16 text-center">
+                <button id="load-more-projects" class="btn-more">More</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="activity" class="py-32 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-2xl font-bold section-title font-serif">活動</h2>
+                <p class="text-gray-400 text-xs mt-4 tracking-widest">学祭制作だけではない</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="aspect-square bg-[#EBEBE6] rounded-[24px] flex items-center justify-center">
+                    <div class="text-[9px] text-neutral-400 uppercase italic">何か</div>
+                </div>
+                <div class="aspect-square bg-[#EBEBE6] rounded-[24px] flex items-center justify-center">
+                    <div class="text-[9px] text-neutral-400 uppercase italic">何か</div>
+                </div>
+                <div class="aspect-square bg-[#EBEBE6] rounded-[24px] flex items-center justify-center">
+                    <div class="text-[9px] text-neutral-400 uppercase italic">何か</div>
+                </div>
+                <div class="aspect-square bg-[#EBEBE6] rounded-[24px] flex items-center justify-center">
+                    <div class="text-[9px] text-neutral-400 uppercase italic">何か</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="news" class="py-32 px-6 bg-[#EBEBE6] rounded-[40px]">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-2xl font-bold section-title font-serif">お知らせ</h2>
+            </div>
+            
+            <div id="news-container" class="space-y-4 mb-16">
+                {% for news in news_list %}
+                <article class="group flex flex-col md:flex-row md:items-center p-6 bg-white/50 rounded-2xl hover:bg-white transition-all cursor-pointer shadow-sm">
+                    <time class="text-[10px] text-gray-400 md:w-32 mb-2 md:mb-0 font-bold uppercase tracking-widest">{{ news.date }}</time>
+                    <div class="flex-1">
+                        <h3 class="text-sm font-bold text-neutral-700">{{ news.title }}</h3>
+                    </div>
+                    <div class="mt-2 md:mt-0">
+                        <span class="text-[8px] bg-[#E8A798]/20 text-[#E8A798] px-3 py-1 rounded-full uppercase font-bold tracking-widest">{{ news.tag }}</span>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+
+            <div class="text-center">
+                <button id="load-more-news" class="btn-more">More</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-32 px-6">
+        <div class="max-w-2xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-2xl font-bold section-title font-serif">お問い合わせ</h2>
+                <p class="text-gray-400 text-sm mt-6 leading-relaxed">まだ使えないですけど。</p>
+            </div>
+            
+            <form id="contactForm" action="/api/contact" method="POST" class="grid grid-cols-1 gap-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-black/5">
+                        <label class="block text-[9px] uppercase tracking-widest text-gray-400 mb-1">お名前</label>
+                        <input type="text" name="name" required class="w-full bg-transparent border-none p-0 focus:ring-0 outline-none text-sm placeholder-gray-300" placeholder="お名前">
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-black/5">
+                        <label class="block text-[9px] uppercase tracking-widest text-gray-400 mb-1">メールアドレス</label>
+                        <input type="email" name="email" required class="w-full bg-transparent border-none p-0 focus:ring-0 outline-none text-sm placeholder-gray-300" placeholder="メールアドレス">
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-black/5">
+                    <label class="block text-[9px] uppercase tracking-widest text-gray-400 mb-1">メッセージ</label>
+                    <textarea name="message" rows="4" required class="w-full bg-transparent border-none p-0 focus:ring-0 outline-none text-sm resize-none placeholder-gray-300" placeholder="お問い合わせ内容をお書きください"></textarea>
+                </div>
+                <div class="pt-6">
+                    <button type="submit" class="w-full py-5 bg-[#333] text-white text-[10px] font-bold uppercase tracking-[0.3em] rounded-full hover:bg-neutral-800 transition duration-500 shadow-xl shadow-black/5">
+                        送信
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="py-20 bg-white text-center text-gray-400 text-[9px] uppercase tracking-[0.2em]">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-xl font-bold text-[#333] tracking-tighter mb-6 font-serif italic">未定研 2026</div>
+            <div class="text-[15px] text-[#333] tracking-tighter mb-6 font-serif italic">メールアドレス：aaa@bbb.ccc</div>
+            <div class="text-[15px] text-[#333] tracking-tighter mb-6 font-serif italic">住所：福岡県のどっか</div>
+            <p>&copy; 九州大学芸術工学部学祭企画未定研 2026.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>
